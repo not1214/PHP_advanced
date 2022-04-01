@@ -149,7 +149,7 @@ JOIN countrylanguages ON celebrities.country_code = countrylanguages.country_cod
 WHERE countrylanguages.is_official = 'T'
 AND countrylanguages.percentage IN (SELECT MAX(percentage)
                                    FROM countrylanguages
-                                   GROUP BY country_code));
+                                   GROUP BY country_code);
 
 -- 問29
 -- 全ての有名人の名前と国名をテーブル結合せずに出力してください。

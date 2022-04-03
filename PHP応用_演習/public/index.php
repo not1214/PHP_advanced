@@ -5,6 +5,6 @@ $parse = parse_url($_SERVER["REQUEST_URI"]);
 if (mb_substr($parse['path'], -1) === '/') {
     $parse['path'] .= $_SERVER["SCRIPT_NAME"];
 }
-require_once(ROOT_PATH.'View'.$parse['path']);
+require_once(ROOT_PATH.'Views'.$parse['path']);
 
 ?>

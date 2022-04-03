@@ -34,7 +34,7 @@
           <p class='col-6 offset-3'><?php echo $_POST['body'] ?></p>
 
           <div class='col-12 my-3'>
-            <input type='button' value='キャンセル' class='button col-2 offset-4 btn-danger'>
+            <input type='button' value='キャンセル' class='button col-2 offset-4 btn-danger' onclick="history.back()">
             <input type='submit' value='送信する' class='button col-2 btn-success ml-3'>
           </div>
         

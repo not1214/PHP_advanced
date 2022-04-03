@@ -20,6 +20,10 @@
           ありがとうございました。
         </p>
       </div>
+      
+      <div class='row justify-content-center mb-3'>
+        <a href="index.php">トップへ戻る</a>
+      </div>
 
       <?php include('footer.php') ?>
     </div>

@@ -37,8 +37,30 @@
         </form>
       </div>
 
-      <div class='row'>
-        
+      <div class='row justify-content-center mx-3'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>氏名</th>
+              <th>フリガナ</th>
+              <th>電話番号</th>
+              <th>メールアドレス</th>
+              <th>お問い合わせ内容</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <button href='' class='button btn-primary'>編集</button>
+                <button href='' class='button btn-danger' onclick="return confirm('本当に削除しますか？')">削除</button>
+              </td>
+            </tr>
+          </thead>
+        </table>
       </div>
 
       <?php include('footer.php') ?>

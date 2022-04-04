@@ -16,15 +16,19 @@ class ContactController {
     }
 
     public function index() {
-      $page = 0;
-      if (isset($this->request['get']['page'])) {
-          $page = $this->request['get']['page'];
-      }
+        $page = 0;
+        if (isset($this->request['get']['page'])) {
+            $page = $this->request['get']['page'];
+        }
 
-      $contacts = $this->Contact->findAll($page);
-      $contacts_count = $this->Contact->countAll();
-      $params = ['contacts' => $contacts, 'pages' => $contacts_count / 20, 'page' => $page];
-      return $params;
+        $contacts = $this->Contact->findAll($page);
+        $contacts_count = $this->Contact->countAll();
+        $params = ['contacts' => $contacts, 'pages' => $contacts_count / 20, 'page' => $page];
+        return $params;
+    }
+
+    public function create($name, $kana, $tel, $email, $body) {
+        $this->Contact->create($name, $kana, $tel, $email, $body);
     }
 }
 

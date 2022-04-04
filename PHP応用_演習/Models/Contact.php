@@ -1,5 +1,5 @@
 <?php
-require_once('./Db.php');
+require_once('Db.php');
 
 class Contact extends Db
 {

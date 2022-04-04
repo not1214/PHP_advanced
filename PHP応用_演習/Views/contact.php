@@ -1,3 +1,11 @@
+<?php
+require_once('../Controllers/ContactController.php');
+
+$contacts = new ContactController;
+$result = $contacts->index();
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,16 +26,16 @@
         <form action='confirm.php' method='post' class='row'>
 
           <label for='name' class='col-6 offset-3 mt-2'>氏名</label>
-          <input id='name' type='text' name='name' class='col-6 offset-3 form-control'>
+          <input id='name' type='text' name='name' placeholder='例）山田太郎' class='col-6 offset-3 form-control'>
 
           <label for='kana' class='col-6 offset-3 mt-2'>フリガナ</label>
-          <input id='kana' type='text' name='kana' class='col-6 offset-3 form-control'>
+          <input id='kana' type='text' name='kana' placeholder='例）ヤマダタロウ' class='col-6 offset-3 form-control'>
 
           <label for='tel' class='col-6 offset-3 mt-2'>電話番号</label>
-          <input id='tel' type='number' name='tel' class='col-6 offset-3 form-control'>
+          <input id='tel' type='number' name='tel' placeholder='例）08011111111' class='col-6 offset-3 form-control'>
 
           <label for='email' class='col-6 offset-3 mt-2'>メールアドレス</label>
-          <input id='email' type='email' name='email' class='col-6 offset-3 form-control'>
+          <input id='email' type='email' name='email' placeholder='例）yamada@example.com' class='col-6 offset-3 form-control'>
 
           <label for='body' class='col-6 offset-3 mt-2'>お問い合わせ内容</label>
           <textarea id='body' name='body' placeholder='ご自由に質問を書いてください' class='col-6 offset-3 form-control' rows='5'></textarea>
@@ -49,15 +57,17 @@
               <th></th>
             </tr>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <?php foreach ($result['contacts'] as $contact) : ?>
+              <td><?php echo $contact['name'] ?></td>
+              <td><?php echo $contact['kana'] ?></td>
+              <td><?php echo $contact['tel'] ?></td>
+              <td><?php echo $contact['email'] ?></td>
+              <td><?php echo $contact['body'] ?></td>
               <td>
-                <button href='' class='button btn-primary'>編集</button>
-                <button href='' class='button btn-danger' onclick="return confirm('本当に削除しますか？')">削除</button>
+                <button href="edit.php?id=<?php $contact['id'] ?>" class='button btn-primary'>編集</button>
+                <button href="delete.php?id=<?php $contact['id'] ?>&page=<?php $result['page'] ?>" class='button btn-danger' onclick="return confirm('本当に削除しますか？')">削除</button>
               </td>
+              <?php endforeach ?>
             </tr>
           </thead>
         </table>

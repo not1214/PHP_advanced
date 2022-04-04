@@ -1,3 +1,20 @@
+<?php
+require_once('../Controllers/ContactController.php');
+
+$contact = new ContactController;
+
+$name = $_POST['name'];
+$kana = $_POST['kana'];
+$tel = $_POST['tel'];
+$email = $_POST['email'];
+$body = $_POST['body'];
+
+if (isset($_POST['submit'])) {
+    $contact->create($name, $kana, $tel, $email, $body);
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -15,34 +32,45 @@
       </div>
 
       <div class='row'>
-        <form action='complete.php' method='post' class='row'>
 
-          <p class='col-6 offset-3 mt-2'>氏名</p>
-          <p class='col-6 offset-3'><?php echo $_POST['name'] ?></p>
+        <p class='col-6 offset-3 mt-2'>氏名</p>
+        <p class='col-6 offset-3'><?php echo $name ?></p>
 
-          <p class='col-6 offset-3 mt-2'>フリガナ</p>
-          <p class='col-6 offset-3'><?php echo $_POST['kana'] ?></p>
+        <p class='col-6 offset-3 mt-2'>フリガナ</p>
+        <p class='col-6 offset-3'><?php echo $kana ?></p>
 
-          <p class='col-6 offset-3 mt-2'>電話番号</p>
-          <p class='col-6 offset-3'><?php echo $_POST['tel'] ?></p>
+        <p class='col-6 offset-3 mt-2'>電話番号</p>
+        <p class='col-6 offset-3'><?php echo $tel ?></p>
 
 
-          <p class='col-6 offset-3 mt-2'>メールアドレス</p>
-          <p class='col-6 offset-3'><?php echo $_POST['email'] ?></p>
+        <p class='col-6 offset-3 mt-2'>メールアドレス</p>
+        <p class='col-6 offset-3'><?php echo $email ?></p>
 
-          <p class='col-6 offset-3 mt-2'>お問い合わせ内容</p>
-          <p class='col-6 offset-3'><?php echo $_POST['body'] ?></p>
+        <p class='col-6 offset-3 mt-2'>お問い合わせ内容</p>
+        <p class='col-6 offset-3'><?php echo $body ?></p>
 
-          <div class='col-12 my-3'>
-            <input type='button' value='キャンセル' class='button col-2 offset-4 btn-danger' onclick="history.back()">
-            <input type='submit' value='送信する' class='button col-2 btn-success ml-3'>
-          </div>
-        
-        </form>
+        <div class='d-inline-flex col-12 my-3'>
+          <form action='contact.php' method='post' class='col-2 offset-4'>
+            <input type='button' value='キャンセル' class='button btn-danger' onclick="history.back()">
+            <input type='hidden' name='name' value="<?php echo $name ?>">
+            <input type='hidden' name='kana' value="<?php echo $kana ?>">
+            <input type='hidden' name='tel' value="<?php echo $tel ?>">
+            <input type='hidden' name='email' value="<?php echo $email ?>">
+            <input type='hidden' name='body' value="<?php echo $body ?>">
+          </form>
+          <form action='complete.php' method='post' class='ml-3'>
+            <input name='submit' type='submit' value='送信する' class='button btn-success ml-3'>
+            <input type='hidden' name='name' value="<?php echo $name ?>">
+            <input type='hidden' name='kana' value="<?php echo $kana ?>">
+            <input type='hidden' name='tel' value="<?php echo $tel ?>">
+            <input type='hidden' name='email' value="<?php echo $email ?>">
+            <input type='hidden' name='body' value="<?php echo $body ?>">
+          </form>
+        </div>
       </div>
-
-      <?php include('footer.php') ?>
     </div>
+
+    <?php include('footer.php') ?>
   </div>
 </body>
 

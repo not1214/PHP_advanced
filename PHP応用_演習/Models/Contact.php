@@ -26,6 +26,15 @@ class Contact extends Db
             $this->rollback();
         }
     }
+    
+    //ページネーション用にContactsテーブルの件数を取得
+    public function countAll():Int {
+        $sql = 'SELECT COUNT(*) as count FROM contacts';
+        $sth = $this->dbh->prepare($sql);
+        $sth->execute();
+        $count = $sth->fetchColumn();
+        return $count;
+    }
 
     public function create($name, $kana, $tel, $email, $body) {
         try {

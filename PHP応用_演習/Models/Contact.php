@@ -1,7 +1,7 @@
 <?php
 require_once('./Db.php');
 
-class Contact extends Db 
+class Contact extends Db
 {
     public function __construct($dbh = null) {
         parent::__construct($dbh);
@@ -10,14 +10,19 @@ class Contact extends Db
     //contactsテーブルから全データ取得（20件毎）
     public function findAll($page = 0):Array {
         try {
+            //トランザクション開始
             $this->begin_transaction();
+            //SQL作成
             $sql = 'SELECT * FROM contacts LIMIT 20 OFFSET '.(20 * $page);
             $sth = $this->dbh->prepare($sql);
+            //実行
             $sth->execute();
+            //値の格納(カラムのみ)
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         } catch (PDOException $e) {
             echo "接続失敗:" . $e->getMessage() . "\n";
+            //エラー時はロールバック
             $this->rollback();
         }
     }
@@ -46,3 +51,5 @@ class Contact extends Db
         }
     }
 }
+
+?>

@@ -9,10 +9,6 @@ $tel = $_POST['tel'];
 $email = $_POST['email'];
 $body = $_POST['body'];
 
-if (isset($_POST['submit'])) {
-    $contact->create($name, $kana, $tel, $email, $body);
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +60,7 @@ if (isset($_POST['submit'])) {
             <input type='hidden' name='kana' value="<?php echo $kana ?>">
             <input type='hidden' name='tel' value="<?php echo $tel ?>">
             <input type='hidden' name='email' value="<?php echo $email ?>">
-            <input type='hidden' name='body' value="<?php echo $body ?>">
+            <input type='hidden' name='body' value="<?php echo nl2br($body) ?>">
           </form>
         </div>
       </div>

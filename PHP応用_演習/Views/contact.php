@@ -49,26 +49,26 @@ $result = $contacts->index();
         <table class='table'>
           <thead>
             <tr>
-              <th>氏名</th>
-              <th>フリガナ</th>
-              <th>電話番号</th>
-              <th>メールアドレス</th>
-              <th>お問い合わせ内容</th>
-              <th></th>
+              <th style='width: 15%'>氏名</th>
+              <th style='width: 15%'>フリガナ</th>
+              <th style='width: 10%'>電話番号</th>
+              <th style='width: 20%'>メールアドレス</th>
+              <th style='width: 30%'>お問い合わせ内容</th>
+              <th style='width: 10%'></th>
             </tr>
+            <?php foreach ($result['contacts'] as $contact) : ?>
             <tr>
-              <?php foreach ($result['contacts'] as $contact) : ?>
-              <td><?php echo $contact['name'] ?></td>
-              <td><?php echo $contact['kana'] ?></td>
+              <td class='text-nowrap'><?php echo $contact['name'] ?></td>
+              <td class='text-nowrap'><?php echo $contact['kana'] ?></td>
               <td><?php echo $contact['tel'] ?></td>
               <td><?php echo $contact['email'] ?></td>
-              <td><?php echo $contact['body'] ?></td>
+              <td class='text-wrap'><?php echo nl2br($contact['body']) ?></td>
               <td>
                 <button href="edit.php?id=<?php $contact['id'] ?>" class='button btn-primary'>編集</button>
                 <button href="delete.php?id=<?php $contact['id'] ?>&page=<?php $result['page'] ?>" class='button btn-danger' onclick="return confirm('本当に削除しますか？')">削除</button>
               </td>
-              <?php endforeach ?>
             </tr>
+            <?php endforeach ?>
           </thead>
         </table>
       </div>

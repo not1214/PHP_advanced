@@ -1,3 +1,18 @@
+<?php
+require_once('../Controllers/ContactController.php');
+
+$contact = new ContactController;
+
+$name = $_POST['name'];
+$kana = $_POST['kana'];
+$tel = $_POST['tel'];
+$email = $_POST['email'];
+$body = $_POST['body'];
+
+$contact->create($name, $kana, $tel, $email, $body);
+
+?>
+
 <!DOCTYPE html>
 <html>
 

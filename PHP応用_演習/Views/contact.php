@@ -64,8 +64,8 @@ $result = $contacts->index();
               <td><?php echo $contact['email'] ?></td>
               <td class='text-wrap'><?php echo nl2br($contact['body']) ?></td>
               <td>
-                <button href="edit.php?id=<?php $contact['id'] ?>" class='button btn-primary'>編集</button>
-                <button href="delete.php?id=<?php $contact['id'] ?>&page=<?php $result['page'] ?>" class='button btn-danger' onclick="return confirm('本当に削除しますか？')">削除</button>
+                <button onclick="location.href='edit.php?id=<?php echo $contact['id'] ?>'" class='button btn-primary'>編集</button>
+                <button onclick="location.href='delete.php?id=<?php echo$contact['id'] ?>&page=<?php echo $result['page'] ?>'; return confirm('本当に削除しますか？')" class='button btn-danger'>削除</button>
               </td>
             </tr>
             <?php endforeach ?>

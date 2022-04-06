@@ -30,6 +30,11 @@ class ContactController {
     public function create($name, $kana, $tel, $email, $body) {
         $this->Contact->create($name, $kana, $tel, $email, $body);
     }
+
+    public function edit($id) {
+        $this->Contact->findId($id);
+    }
+
 }
 
 ?>

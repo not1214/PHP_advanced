@@ -1,11 +1,13 @@
 <?php
 require_once('../Models/Contact.php');
 
-class ContactController {
+class ContactController
+{
     private $request;  //リクエストパラメータ(GET,POST)
     private $Contact;  //Contactモデル
 
-    public function __construct() {
+    public function __construct()
+    {
         //リクエストパラメータの取得
         $this->request['get'] = $_GET;
         $this->request['post'] = $_POST;
@@ -15,7 +17,8 @@ class ContactController {
         $dbh = $this->Contact->get_db_handler();
     }
 
-    public function index() {
+    public function index()
+    {
         $page = 0;
         if (isset($this->request['get']['page'])) {
             $page = $this->request['get']['page'];
@@ -27,14 +30,15 @@ class ContactController {
         return $params;
     }
 
-    public function create($name, $kana, $tel, $email, $body) {
+    public function create($name, $kana, $tel, $email, $body)
+    {
         $this->Contact->create($name, $kana, $tel, $email, $body);
     }
 
-    public function edit($id) {
-        $this->Contact->findId($id);
+    public function edit($id)
+    {
+        return $this->Contact->findId($id);
     }
-
 }
 
 ?>

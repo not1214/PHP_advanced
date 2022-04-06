@@ -59,6 +59,26 @@ class Contact extends Db
             $this->rollback();
         }
     }
+
+    public function findId($id) {
+        try {
+            //トランザクション開始
+            $this->begin_transaction();
+            //SQL作成
+            $sql = 'SELECT * FROM contacts WHERE id = :id';
+            $sth = $this->dbh->prepare($sql);
+            //値のセット
+            $sth->bindValue(':id', $id, PDO::PARAM_INT);
+            //実行
+            $sth->execute();
+            //コミット
+            $sth->commit();
+        } catch (PDOException $e) {
+            echo "接続失敗:".$e->getMessage()."\n";
+            //エラー時はロールバック
+            $this->rollback();
+        }
+    }
 }
 
 ?>

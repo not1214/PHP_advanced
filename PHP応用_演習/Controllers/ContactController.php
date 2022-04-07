@@ -50,6 +50,7 @@ class ContactController
     public function update($id, $name, $kana, $tel, $email, $body)
     {
         $this->Contact->update($id, $name, $kana, $tel, $email, $body);
+        $_POST = array();
     }
 
     public function destroy($id)
@@ -70,7 +71,9 @@ class ContactController
         } elseif (mb_strlen($kana) > 10) {
             $errors['kana'] = '10文字以内で入力してください。';
         }
-        if (preg_match("/^0[0-9]{9,10}\z/", $tel) === 0) {
+        if (empty($tel)) {
+            $errors['tel'] = null;
+        } elseif (preg_match("/^0[0-9]{9,10}\z/", $tel) === 0) {
             $errors['tel'] = '正しい電話番号を入力してください。';
         }
         if (empty($email)) {

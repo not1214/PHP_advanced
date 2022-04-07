@@ -13,11 +13,11 @@ $body = $contact->escape($_POST['body']);
 $_SESSION['errors'] = $contact->validate($name, $kana, $tel, $email, $body);
 if (!empty($_SESSION['errors'])) {
     header('Location: contact.php');
-    $name = $contact->escape($_POST['name']);
-    $kana = $contact->escape($_POST['kana']);
-    $tel = $contact->escape($_POST['tel']);
-    $email = $contact->escape($_POST['email']);
-    $body = $contact->escape($_POST['body']);
+    $_SESSION['name'] = $contact->escape($_POST['name']);
+    $_SESSION['kana'] = $contact->escape($_POST['kana']);
+    $_SESSION['tel'] = $contact->escape($_POST['tel']);
+    $_SESSION['email'] = $contact->escape($_POST['email']);
+    $_SESSION['body'] = $contact->escape($_POST['body']);
 }
 
 ?>

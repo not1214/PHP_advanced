@@ -3,19 +3,32 @@ require_once('../Controllers/ContactController.php');
 session_start();
 
 $contacts = new ContactController;
-if (!empty($_POST)) {
-    $id = $_POST['id'];
-    $name = $contacts->escape($_POST['name']);
-    $kana = $contacts->escape($_POST['kana']);
-    $tel = $contacts->escape($_POST['tel']);
-    $email = $contacts->escape($_POST['email']);
-    $body = $contacts->escape($_POST['body']);
-
-    $contacts->update($id, $name, $kana, $tel, $email, $body);
-}
-
-if (!empty($_SESSION['errors'])) {
+if (!empty($_POST)) {  //編集画面からのPOSTの値を変数にセット
+    $editId = $_POST['id'];
+    $editName = $contacts->escape($_POST['name']);
+    $editKana = $contacts->escape($_POST['kana']);
+    $editTel = $contacts->escape($_POST['tel']);
+    $editEmail = $contacts->escape($_POST['email']);
+    $editBody = $contacts->escape($_POST['body']);
+    $contacts->update($editId, $editName, $editKana, $editTel, $editEmail, $editBody);
+    $name = null;
+    $kana = null;
+    $tel = null;
+    $email = null;
+    $body = null;
+} elseif (!empty($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];
+    $name = $_SESSION["name"];
+    $kana = $_SESSION["kana"];
+    $tel = $_SESSION["tel"];
+    $email = $_SESSION["email"];
+    $body = $_SESSION["body"];
+} else {
+    $name = null;
+    $kana = null;
+    $tel = null;
+    $email = null;
+    $body = null;
 }
 
 $result = $contacts->index();
@@ -41,32 +54,33 @@ $result = $contacts->index();
       <div class='row'>
         <form action='confirm.php' method='post' class='row'>
 
+          <?php ?>
           <label for='name' class='col-6 offset-3 mt-2'>氏名</label>
-          <input id='name' type='text' name='name' placeholder='例）山田太郎' class='col-6 offset-3 form-control'>
+          <input id='name' type='text' name='name' placeholder='例）山田太郎' value="<?php echo $name ?>" class='col-6 offset-3 form-control'>
           <?php if (!empty($errors['name'])) : ?>
             <p class='col-6 offset-3' style='color: red;'><?php echo $errors['name'] ?></p>
           <?php endif ?>
 
           <label for='kana' class='col-6 offset-3 mt-2'>フリガナ</label>
-          <input id='kana' type='text' name='kana' placeholder='例）ヤマダタロウ' class='col-6 offset-3 form-control'>
+          <input id='kana' type='text' name='kana' placeholder='例）ヤマダタロウ' value="<?php echo $kana ?>" class='col-6 offset-3 form-control'>
           <?php if (!empty($errors['kana'])) : ?>
              <p class='col-6 offset-3' style='color: red;'><?php echo $errors['kana'] ?></p>
           <?php endif ?>
 
           <label for='tel' class='col-6 offset-3 mt-2'>電話番号</label>
-          <input id='tel' type='number' name='tel' placeholder='例）08011111111' class='col-6 offset-3 form-control'>
+          <input id='tel' type='number' name='tel' placeholder='例）08011111111' value="<?php echo $tel ?>" class='col-6 offset-3 form-control'>
           <?php if (!empty($errors['tel'])) : ?>
              <p class='col-6 offset-3' style='color: red;'><?php echo $errors['tel'] ?></p>
           <?php endif ?>
 
           <label for='email' class='col-6 offset-3 mt-2'>メールアドレス</label>
-          <input id='email' type='email' name='email' placeholder='例）yamada@example.com' class='col-6 offset-3 form-control'>
+          <input id='email' type='email' name='email' placeholder='例）yamada@example.com' value="<?php echo $email ?>" class='col-6 offset-3 form-control'>
           <?php if (!empty($errors['email'])) : ?>
              <p class='col-6 offset-3' style='color: red;'><?php echo $errors['email'] ?></p>
           <?php endif ?>
 
           <label for='body' class='col-6 offset-3 mt-2'>お問い合わせ内容</label>
-          <textarea id='body' name='body' placeholder='ご自由に質問を書いてください' class='col-6 offset-3 form-control' rows='5'></textarea>
+          <textarea id='body' name='body' placeholder='ご自由に質問を書いてください' class='col-6 offset-3 form-control' rows='5'><?php echo $body ?></textarea>
           <?php if (!empty($errors['body'])) : ?>
              <p class='col-6 offset-3' style='color: red;'><?php echo $errors['body'] ?></p>
           <?php endif ?>

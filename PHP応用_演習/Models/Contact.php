@@ -113,6 +113,28 @@ class Contact extends Db
         }
     }
 
+    public function delete($id)
+    {
+        try {
+            //トランザクション開始
+            $this->begin_transaction();
+            //SQL作成
+            $sql = 'DELETE FROM contacts WHERE id = :id';
+            $sth = $this->dbh->prepare($sql);
+            //値のセット
+            $sth->bindValue(':id', $id, PDO::PARAM_INT);
+            //実行
+            $sth->execute();
+            //コミット
+            $this->commit();
+        } catch (PDOException $e) {
+            echo '接続失敗:'.$e->getMessage()."\n";
+            //エラー時はロールバック
+            $this->rollback();
+        }
+
+    }
+
 }
 
 ?>

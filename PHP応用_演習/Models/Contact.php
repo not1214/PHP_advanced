@@ -27,6 +27,7 @@ class Contact extends Db
             //エラー時はロールバック
             $this->rollback();
         }
+        $sth = null;
     }
     
     //ページネーション用にContactsテーブルの件数を取得
@@ -104,7 +105,7 @@ class Contact extends Db
             //実行
             $sth->execute();
             //コミット
-            $sth->commit();
+            $this->commit();
         } catch (PDOException $e) {
             echo "接続失敗:".$e->getMessage()."\n";
             //エラー時はロールバック

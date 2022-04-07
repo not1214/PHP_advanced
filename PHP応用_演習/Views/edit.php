@@ -2,7 +2,8 @@
 require_once('../Controllers/ContactController.php');
 
 $contact = new ContactController;
-$result = $contact->edit($_GET['id']);
+$id = $_GET['id'];
+$result = $contact->edit($id);
 
 ?>
 
@@ -45,6 +46,7 @@ $result = $contact->edit($_GET['id']);
           <div class='col-12 my-3'>
             <input type='button' href='contact.php' value='キャンセル' class='button col-2 offset-4 btn-danger' onclick="history.back()">
             <input type='submit' value='更新する' class='button col-2 ml-3 btn-success'>
+            <input type='hidden' name='id' value="<?php echo $id ?>">
           </div>
         
         </form>

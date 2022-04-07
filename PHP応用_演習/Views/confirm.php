@@ -43,7 +43,7 @@ $body = $_POST['body'];
         <p class='col-6 offset-3'><?php echo $email ?></p>
 
         <p class='col-6 offset-3 mt-2'>お問い合わせ内容</p>
-        <p class='col-6 offset-3'><?php echo $body ?></p>
+        <p class='col-6 offset-3'><?php echo nl2br($body) ?></p>
 
         <div class='d-inline-flex col-12 my-3'>
           <form action='contact.php' method='post' class='col-2 offset-4'>

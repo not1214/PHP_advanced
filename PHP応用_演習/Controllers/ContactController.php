@@ -57,6 +57,33 @@ class ContactController
         $this->Contact->delete($id);
     }
 
+    public function validate($name, $kana, $tel, $email, $body)
+    {
+        $errors = [];
+        if (empty($name)) {
+            $errors['name'] = '氏名を入力してください。';
+        } elseif (mb_strlen($name) > 10) {
+            $errors['name'] = '10文字以内で入力してください。';
+        }
+        if (empty($kana)) {
+            $errors['kana'] = 'フリガナを入力してください。';
+        } elseif (mb_strlen($kana) > 10) {
+            $errors['kana'] = '10文字以内で入力してください。';
+        }
+        if (preg_match("/^0[0-9]{9,10}\z/", $tel) === 0) {
+            $errors['tel'] = '正しい電話番号を入力してください。';
+        }
+        if (empty($email)) {
+            $errors['email'] = 'メールアドレスを入力してください。';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = '正しいEメールアドレスを入力してください。';
+        }
+        if (empty($body)) {
+            $errors['body'] = 'お問い合わせ内容を入力してください。';
+        }
+        return $errors;
+    }
+
 }
 
 ?>

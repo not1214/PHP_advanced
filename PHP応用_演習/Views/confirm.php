@@ -1,5 +1,6 @@
 <?php
 require_once('../Controllers/ContactController.php');
+session_start();
 
 $contact = new ContactController;
 
@@ -8,6 +9,16 @@ $kana = $contact->escape($_POST['kana']);
 $tel = $contact->escape($_POST['tel']);
 $email = $contact->escape($_POST['email']);
 $body = $contact->escape($_POST['body']);
+
+$_SESSION['errors'] = $contact->validate($name, $kana, $tel, $email, $body);
+if (!empty($_SESSION['errors'])) {
+    header('Location: contact.php');
+    $name = $contact->escape($_POST['name']);
+    $kana = $contact->escape($_POST['kana']);
+    $tel = $contact->escape($_POST['tel']);
+    $email = $contact->escape($_POST['email']);
+    $body = $contact->escape($_POST['body']);
+}
 
 ?>
 

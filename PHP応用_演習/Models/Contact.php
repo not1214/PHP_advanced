@@ -132,9 +132,7 @@ class Contact extends Db
             //エラー時はロールバック
             $this->rollback();
         }
-
     }
-
 }
 
 ?>

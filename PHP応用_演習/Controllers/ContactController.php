@@ -39,6 +39,11 @@ class ContactController
     {
         return $this->Contact->findId($id);
     }
+
+    public function update($id, $name, $kana, $tel, $email, $body)
+    {
+        $this->Contact->update($id, $name, $kana, $tel, $email, $body);
+    }
 }
 
 ?>

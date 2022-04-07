@@ -17,6 +17,13 @@ class ContactController
         $dbh = $this->Contact->get_db_handler();
     }
 
+    //エスケープ処理
+    public function escape($str)
+    {
+        return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+    }
+
+
     public function index()
     {
         $page = 0;

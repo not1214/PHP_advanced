@@ -2,14 +2,13 @@
 require_once('../Controllers/ContactController.php');
 
 $contacts = new ContactController;
-
 if (!empty($_POST)) {
     $id = $_POST['id'];
-    $name = $_POST['name'];
-    $kana = $_POST['kana'];
-    $tel = $_POST['tel'];
-    $email = $_POST['email'];
-    $body = $_POST['body'];
+    $name = $contacts->escape($_POST['name']);
+    $kana = $contacts->escape($_POST['kana']);
+    $tel = $contacts->escape($_POST['tel']);
+    $email = $contacts->escape($_POST['email']);
+    $body = $contacts->escape($_POST['body']);
 
     $contacts->update($id, $name, $kana, $tel, $email, $body);
 }

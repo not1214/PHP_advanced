@@ -3,11 +3,11 @@ require_once('../Controllers/ContactController.php');
 
 $contact = new ContactController;
 
-$name = $_POST['name'];
-$kana = $_POST['kana'];
-$tel = $_POST['tel'];
-$email = $_POST['email'];
-$body = $_POST['body'];
+$name = $contact->escape($_POST['name']);
+$kana = $contact->escape($_POST['kana']);
+$tel = $contact->escape($_POST['tel']);
+$email = $contact->escape($_POST['email']);
+$body = $contact->escape($_POST['body']);
 
 ?>
 

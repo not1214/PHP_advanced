@@ -127,6 +127,7 @@ class Contact extends Db
             $sth->execute();
             //コミット
             $this->commit();
+            header('Location: contact.php');
         } catch (PDOException $e) {
             echo '接続失敗:'.$e->getMessage()."\n";
             //エラー時はロールバック

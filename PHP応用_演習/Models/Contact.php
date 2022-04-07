@@ -85,6 +85,33 @@ class Contact extends Db
             $this->rollback();
         }
     }
+
+    public function update($id, $name, $kana, $tel, $email, $body)
+    {
+        try {
+            //トランザクション開始
+            $this->begin_transaction();
+            //SQL作成
+            $sql = 'UPDATE contacts SET name = :name, kana = :kana, tel = :tel, email = :email, body = :body WHERE id = :id';
+            $sth = $this->dbh->prepare($sql);
+            //値のセット
+            $sth->bindValue(':id', $id, PDO::PARAM_INT);
+            $sth->bindValue(':name', $name, PDO::PARAM_STR);
+            $sth->bindValue(':kana', $kana, PDO::PARAM_STR);
+            $sth->bindValue(':tel', $tel, PDO::PARAM_STR);
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
+            $sth->bindValue(':body', $body, PDO::PARAM_STR);
+            //実行
+            $sth->execute();
+            //コミット
+            $sth->commit();
+        } catch (PDOException $e) {
+            echo "接続失敗:".$e->getMessage()."\n";
+            //エラー時はロールバック
+            $this->rollback();
+        }
+    }
+
 }
 
 ?>

@@ -44,6 +44,12 @@ class ContactController
     {
         $this->Contact->update($id, $name, $kana, $tel, $email, $body);
     }
+
+    public function destroy($id)
+    {
+        $this->Contact->delete($id);
+    }
+
 }
 
 ?>

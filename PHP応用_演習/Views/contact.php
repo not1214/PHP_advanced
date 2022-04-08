@@ -12,7 +12,7 @@ if (!empty($_POST)) {  //編集画面からのPOSTの値を変数にセット
     $editBody = $contacts->escape($_POST['body']);
     $_SESSION['editErrors'] = $contacts->validate($editName, $editKana, $editTel, $editEmail, $editBody);
     if (!empty($_SESSION['editErrors'])) {
-        header('Location: edit.php?id=$editId');
+        header("Location: edit.php?id={$editId}");
         $_SESSION['editName'] = $contacts->escape($_POST['name']);
         $_SESSION['editKana'] = $contacts->escape($_POST['kana']);
         $_SESSION['editTel'] = $contacts->escape($_POST['tel']);

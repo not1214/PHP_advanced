@@ -77,13 +77,15 @@ if (!empty($_SESSION['editErrors'])) {
           <p class='col-12 text-center mt-3'>上記内容でよろしいでしょうか？</p>
           
           <div class='col-12 my-3'>
-            <input type='button' href='contact.php' value='キャンセル' class='button col-2 offset-4 btn-danger' onclick="history.back()">
+            <input type='button' value='キャンセル' class='button col-2 offset-4 btn-danger' onclick="location.href='contact.php'">
             <input id='submit' type='submit' value='更新する' class='button col-2 ml-3 btn-success'>
             <input type='hidden' name='id' value="<?php echo $id ?>">
           </div>
         
         </form>
-        <?php session_destroy(); ?>
+        <?php if (!empty($_SESSION['editErrors'])) : ?>
+            <?php session_destroy(); ?>
+        <?php endif ?>
       </div>
 
       <?php include('footer.php') ?>

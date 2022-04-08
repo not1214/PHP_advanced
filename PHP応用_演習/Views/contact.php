@@ -10,12 +10,22 @@ if (!empty($_POST)) {  //編集画面からのPOSTの値を変数にセット
     $editTel = $contacts->escape($_POST['tel']);
     $editEmail = $contacts->escape($_POST['email']);
     $editBody = $contacts->escape($_POST['body']);
-    $contacts->update($editId, $editName, $editKana, $editTel, $editEmail, $editBody);
-    $name = null;
-    $kana = null;
-    $tel = null;
-    $email = null;
-    $body = null;
+    $_SESSION['editErrors'] = $contacts->validate($editName, $editKana, $editTel, $editEmail, $editBody);
+    if (!empty($_SESSION['editErrors'])) {
+        header('Location: edit.php?id=$editId');
+        $_SESSION['editName'] = $contacts->escape($_POST['name']);
+        $_SESSION['editKana'] = $contacts->escape($_POST['kana']);
+        $_SESSION['editTel'] = $contacts->escape($_POST['tel']);
+        $_SESSION['editEmail'] = $contacts->escape($_POST['email']);
+        $_SESSION['editBody'] = $contacts->escape($_POST['body']);
+    } else {
+        $contacts->update($editId, $editName, $editKana, $editTel, $editEmail, $editBody);
+        $name = null;
+        $kana = null;
+        $tel = null;
+        $email = null;
+        $body = null;
+    }
 } elseif (!empty($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];
     $name = $_SESSION["name"];
@@ -80,7 +90,7 @@ $result = $contacts->index();
           <?php endif ?>
 
           <label for='body' class='col-6 offset-3 mt-2'>お問い合わせ内容</label>
-          <textarea id='body' name='body' placeholder='ご自由に質問を書いてください' class='col-6 offset-3 form-control' rows='5'><?php echo $body ?></textarea>
+          <textarea id='body' name='body' placeholder='ご自由に質問を書いてください' class='col-6 offset-3 form-control' rows='5'><?php echo strip_tags($body) ?></textarea>
           <?php if (!empty($errors['body'])) : ?>
              <p class='col-6 offset-3' style='color: red;'><?php echo $errors['body'] ?></p>
           <?php endif ?>
@@ -88,7 +98,6 @@ $result = $contacts->index();
           <input type='submit' value='確認する' class='button col-2 offset-5 my-3 btn-success'>
 
         </form>
-        <?php session_destroy() ?>
       </div>
 
       <div class='row justify-content-center mx-3'>

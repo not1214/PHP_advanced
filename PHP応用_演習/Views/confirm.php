@@ -71,7 +71,7 @@ if (!empty($_SESSION['errors'])) {
             <input type='hidden' name='kana' value="<?php echo $kana ?>">
             <input type='hidden' name='tel' value="<?php echo $tel ?>">
             <input type='hidden' name='email' value="<?php echo $email ?>">
-            <input type='hidden' name='body' value="<?php echo nl2br($body) ?>">
+            <input type='hidden' name='body' value="<?php echo strip_tags(nl2br($body)) ?>">
           </form>
         </div>
       </div>

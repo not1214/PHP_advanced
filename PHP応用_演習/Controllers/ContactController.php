@@ -72,7 +72,6 @@ class ContactController
             $errors['kana'] = '10文字以内で入力してください。';
         }
         if (empty($tel)) {
-            $errors['tel'] = null;
         } elseif (preg_match("/^0[0-9]{9,10}\z/", $tel) === 0) {
             $errors['tel'] = '正しい電話番号を入力してください。';
         }

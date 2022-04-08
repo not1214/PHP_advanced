@@ -49,7 +49,8 @@ $result = $contacts->index();
 <html>
 
 <head>
-  <?php include('head.php') ?>
+  <?php include('head.php'); ?>
+  <script defer src="../js/validation.js"></script>
 </head>
 
 <body>
@@ -95,11 +96,14 @@ $result = $contacts->index();
              <p class='col-6 offset-3' style='color: red;'><?php echo $errors['body'] ?></p>
           <?php endif ?>
 
-          <input type='submit' value='確認する' class='button col-2 offset-5 my-3 btn-success'>
+          <input id='submit' type='submit' value='確認する' class='button col-2 offset-5 my-3 btn-success'>
 
         </form>
+        <?php if (!empty($_SESSION['errors'])) : ?>
+            <?php session_destroy(); ?>
+        <?php endif ?>
       </div>
-
+      
       <div class='row justify-content-center mx-3'>
         <table class='table'>
           <thead>

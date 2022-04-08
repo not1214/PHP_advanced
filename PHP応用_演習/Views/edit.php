@@ -29,12 +29,13 @@ if (!empty($_SESSION['editErrors'])) {
 
 <head>
   <?php include('head.php') ?>
+  <script defer src="../js/validation.js"></script>
 </head>
 
 <body>
   <div class='main'>
     <div class='container-fluid'>
-      <?php include("header.php") ?>
+      <?php include('header.php') ?>
 
       <div class='row justify-content-center mt-3'>
         <h3>お問い合わせ内容編集</h3>
@@ -77,7 +78,7 @@ if (!empty($_SESSION['editErrors'])) {
           
           <div class='col-12 my-3'>
             <input type='button' href='contact.php' value='キャンセル' class='button col-2 offset-4 btn-danger' onclick="history.back()">
-            <input type='submit' value='更新する' class='button col-2 ml-3 btn-success'>
+            <input id='submit' type='submit' value='更新する' class='button col-2 ml-3 btn-success'>
             <input type='hidden' name='id' value="<?php echo $id ?>">
           </div>
         

@@ -2,10 +2,11 @@
 <html>
 <head>
     <?php include('head.php')?>
+    <script defer src="../js/index.js"></script>
 </head>
 <body>
     <div class="main">
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <?php include("header.php") ?>
             <div class="row">
                 <div class="col-md-12 col-xs-12 px-0">

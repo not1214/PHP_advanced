@@ -12,12 +12,12 @@ window.onload = function(){
 
 		if (name.value == "") {
 			message.push("氏名が未入力です。");
-		} else if (name.length > 10) {
+		} else if (name.value.length > 10) {
 			message.push("氏名を10文字以内で入力してください。");
 		}
 		if (kana.value == "") {
 			message.push("フリガナが未入力です。");
-		} else if (kana.length > 10) {
+		} else if (kana.value.length > 10) {
 			message.push("フリガナを10文字以内で入力してください。");
 		}
 		if (tel.value.match(/^(0{1}\d{8,9,10})$/)) {
@@ -33,8 +33,8 @@ window.onload = function(){
 		}
 		
 		if (message.length > 0) {
-			alert(message);
-			return;
+			let message_str = message.join('\n');
+			alert(message_str);
 		}
 	});
 };

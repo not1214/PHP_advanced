@@ -3,7 +3,8 @@ require_once('../Controllers/ContactController.php');
 session_start();
 
 $contact = new ContactController;
-$id = $_GET['id'];
+
+//idからレコード取得、idが存在しなければcontact.phpへ
 $result = $contact->edit($id);
 if (!empty($result)) {
     $name = $result['name'];
@@ -11,8 +12,11 @@ if (!empty($result)) {
     $tel = $result['tel'];
     $email = $result['email'];
     $body = $result['body'];
+} else {
+    header("Location: contact.php");
 }
 
+//contact.phpで定義したセッション変数を変数に代入
 if (!empty($_SESSION['editErrors'])) {
     $errors = $_SESSION['editErrors'];
     $name = $_SESSION['editName'];
@@ -83,6 +87,7 @@ if (!empty($_SESSION['editErrors'])) {
           </div>
         
         </form>
+        <!-- $_SESSION['editErrors']があるとcontact.phpに影響があるためリセット -->
         <?php if (!empty($_SESSION['editErrors'])) : ?>
             <?php session_destroy(); ?>
         <?php endif ?>

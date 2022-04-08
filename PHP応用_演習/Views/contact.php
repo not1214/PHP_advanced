@@ -3,15 +3,19 @@ require_once('../Controllers/ContactController.php');
 session_start();
 
 $contacts = new ContactController;
-if (!empty($_POST)) {  //編集画面からのPOSTの値を変数にセット
+if (!empty($_POST['id'])) {  //編集時
+    //編集画面からの$_POSTの値を変数にセット
     $editId = $_POST['id'];
     $editName = $contacts->escape($_POST['name']);
     $editKana = $contacts->escape($_POST['kana']);
     $editTel = $contacts->escape($_POST['tel']);
     $editEmail = $contacts->escape($_POST['email']);
     $editBody = $contacts->escape($_POST['body']);
+    //バリデーションチェック
     $_SESSION['editErrors'] = $contacts->validate($editName, $editKana, $editTel, $editEmail, $editBody);
+
     if (!empty($_SESSION['editErrors'])) {
+        //バリデーションチェックの結果を$_SESSIONに保存し、edit.phpでメッセージを表示
         header("Location: edit.php?id={$editId}");
         $_SESSION['editName'] = $contacts->escape($_POST['name']);
         $_SESSION['editKana'] = $contacts->escape($_POST['kana']);
@@ -19,28 +23,39 @@ if (!empty($_POST)) {  //編集画面からのPOSTの値を変数にセット
         $_SESSION['editEmail'] = $contacts->escape($_POST['email']);
         $_SESSION['editBody'] = $contacts->escape($_POST['body']);
     } else {
+        //編集時にエラーがなければ更新
         $contacts->update($editId, $editName, $editKana, $editTel, $editEmail, $editBody);
+        //入力画面にリダイレクトした際にフォームに値が入らないようにnullを代入
         $name = null;
         $kana = null;
         $tel = null;
         $email = null;
         $body = null;
     }
-} elseif (!empty($_SESSION['errors'])) {
+} elseif (!empty($_SESSION['errors'])) {  //contact.phpでエラーがあった場合
+    //確認画面(confirm.php)でのバリデーションチェックの結果を変数に代入
     $errors = $_SESSION['errors'];
+    //contact.phpからconfirm.phpに送られた$_POSTの値を表示する(confirm.php:23~27)
     $name = $_SESSION["name"];
     $kana = $_SESSION["kana"];
     $tel = $_SESSION["tel"];
     $email = $_SESSION["email"];
     $body = $_SESSION["body"];
+} elseif (!empty($_POST)) {  //confirm.phpでキャンセル時
+    $name = $contacts->escape($_POST['name']);
+    $kana = $contacts->escape($_POST['kana']);
+    $tel = $contacts->escape($_POST['tel']);
+    $email = $contacts->escape($_POST['email']);
+    $body = $contacts->escape($_POST['body']);
 } else {
+    //$_POST, $_SESSIONに値がなければ(通常時)、変数にnullを代入
     $name = null;
     $kana = null;
     $tel = null;
     $email = null;
     $body = null;
 }
-
+//一覧表示
 $result = $contacts->index();
 
 ?>
@@ -99,6 +114,7 @@ $result = $contacts->index();
           <input id='submit' type='submit' value='確認する' class='button col-2 offset-5 my-3 btn-success'>
 
         </form>
+        <!-- エラーメッセージが残るため、contact.phpで入力した値でのバリデーションチェックのエラーをリセットする -->
         <?php if (!empty($_SESSION['errors'])) : ?>
             <?php session_destroy(); ?>
         <?php endif ?>

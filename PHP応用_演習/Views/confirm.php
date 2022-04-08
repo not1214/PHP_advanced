@@ -4,6 +4,7 @@ session_start();
 
 $contact = new ContactController;
 
+//ダイレクトアクセス禁止
 $referer = $_SERVER['HTTP_REFERER'];
 $url = "contact.php";
 if (!strstr($referer, $url)) {
@@ -11,13 +12,16 @@ if (!strstr($referer, $url)) {
     exit;
 }
 
+//contact.phpからのPOSTの値を変数に代入
 $name = $contact->escape($_POST['name']);
 $kana = $contact->escape($_POST['kana']);
 $tel = $contact->escape($_POST['tel']);
 $email = $contact->escape($_POST['email']);
 $body = $contact->escape($_POST['body']);
 
+//contact.phpからの値をバリデーションチェック
 $_SESSION['errors'] = $contact->validate($name, $kana, $tel, $email, $body);
+//バリデーションチェックでエラーがあればSESSIONにPOSTで送られてきた値を代入
 if (!empty($_SESSION['errors'])) {
     header('Location: contact.php');
     $_SESSION['name'] = $contact->escape($_POST['name']);
@@ -61,16 +65,16 @@ if (!empty($_SESSION['errors'])) {
         <p class='col-6 offset-3'><?php echo $email ?></p>
 
         <p class='col-6 offset-3 mt-2'>お問い合わせ内容</p>
-        <p class='col-6 offset-3'><?php echo nl2br($body) ?></p>
+        <p class='col-6 offset-3'><?php echo strip_tags(nl2br($body)) ?></p>
 
         <div class='d-inline-flex col-12 my-3'>
           <form action='contact.php' method='post' class='col-2 offset-4'>
-            <input type='button' value='キャンセル' class='button btn-danger' onclick="history.back()">
+            <input name='submit' type='submit' value='キャンセル' class='button btn-danger'>
             <input type='hidden' name='name' value="<?php echo $name ?>">
             <input type='hidden' name='kana' value="<?php echo $kana ?>">
             <input type='hidden' name='tel' value="<?php echo $tel ?>">
             <input type='hidden' name='email' value="<?php echo $email ?>">
-            <input type='hidden' name='body' value="<?php echo $body ?>">
+            <input type='hidden' name='body' value="<?php echo strip_tags(nl2br($body)) ?>">
           </form>
           <form action='complete.php' method='post' class='ml-3'>
             <input name='submit' type='submit' value='送信する' class='button btn-success ml-3'>

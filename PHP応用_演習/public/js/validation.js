@@ -20,7 +20,7 @@ window.onload = function(){
 		} else if (kana.value.length > 10) {
 			message.push("フリガナを10文字以内で入力してください。");
 		}
-		if (tel.value.match(/^(0{1}\d{8,9,10})$/)) {
+		if (!tel.value.match(/^(0{1}\d{9,10})$/)) {
 			message.push("正しい電話番号を入力してください。");
 		}
 		if (email.value == "") {

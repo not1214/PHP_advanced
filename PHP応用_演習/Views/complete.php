@@ -3,19 +3,22 @@ require_once('../Controllers/ContactController.php');
 
 $contact = new ContactController;
 
+//ダイレクトアクセス禁止
 $referer = $_SERVER['HTTP_REFERER'];
-$url = "contact.php";
+$url = "confirm.php";
 if (!strstr($referer, $url)) {
     header("Location: contact.php");
     exit;
 }
 
+//confirm.phpからのPOSTの値を変数に代入
 $name = $contact->escape($_POST['name']);
 $kana = $contact->escape($_POST['kana']);
 $tel = $contact->escape($_POST['tel']);
 $email = $contact->escape($_POST['email']);
 $body = $contact->escape($_POST['body']);
 
+//データベースに保存
 $contact->create($name, $kana, $tel, $email, $body);
 
 ?>

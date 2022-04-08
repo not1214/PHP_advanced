@@ -4,6 +4,13 @@ session_start();
 
 $contact = new ContactController;
 
+$referer = $_SERVER['HTTP_REFERER'];
+$url = "contact.php";
+if (!strstr($referer, $url)) {
+    header("Location: contact.php");
+    exit;
+}
+
 $name = $contact->escape($_POST['name']);
 $kana = $contact->escape($_POST['kana']);
 $tel = $contact->escape($_POST['tel']);

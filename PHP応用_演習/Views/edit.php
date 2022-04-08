@@ -2,6 +2,13 @@
 require_once('../Controllers/ContactController.php');
 session_start();
 
+$referer = $_SERVER['HTTP_REFERER'];
+$url = "contact.php";
+if (!strstr($referer, $url)) {
+    header("Location: contact.php");
+    exit;
+}
+
 $contact = new ContactController;
 $id = $_GET['id'];
 $result = $contact->edit($id);

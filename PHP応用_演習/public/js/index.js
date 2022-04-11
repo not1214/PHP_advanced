@@ -7,8 +7,8 @@ $(function () {
     $(".scroll-block").each(function() {
       var scroll = $(window).scrollTop();
       var blockPosition = $(this).offset().top;
-      var windowHeihgt = $(window).height();
-      if (scroll > blockPosition - windowHeihgt + 300) {
+      var windowHeight = $(window).height();
+      if (scroll > blockPosition - windowHeight + 300) {
         $(this).addClass("blockIn");
       }
     });
@@ -52,6 +52,6 @@ $(function () {
 	scrollbar: {
 	el: '.swiper-scrollbar', // スクロールバーを表示するセレクタ
 	}
-});
+  });
 
 });
